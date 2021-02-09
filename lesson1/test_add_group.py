@@ -46,7 +46,6 @@ class TestAddGroup(unittest.TestCase):
     def tearDown(self):    #  функция зачистки
         self.wd.quit()
 
-
 if __name__ == "__main__":    #  указание на фреймворк для запуска
     unittest.main()
 
