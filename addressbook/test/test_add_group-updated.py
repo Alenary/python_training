@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 from model.group import Group
-from python_training.fixture.application import Application
+from fixture.application import Application
 
 @pytest.fixture    # инициализация фикстуры
 def app(request):
