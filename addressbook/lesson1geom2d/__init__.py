@@ -1,1 +1,0 @@
-from lesson1geom2d.lesson1point import *

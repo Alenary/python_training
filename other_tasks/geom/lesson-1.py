@@ -2,8 +2,6 @@ from math import sqrt
 
 '''from lesson1geom2d.lesson1point import Point'''
 
-from lesson1geom2d import *  # импорт в соответствии с файлом init
-
 a = Point(0, 0)
 b = Point(3, 4)
 

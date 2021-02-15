@@ -1,0 +1,1 @@
+from python_training.other_tasks.geom.lesson1geom2d import *

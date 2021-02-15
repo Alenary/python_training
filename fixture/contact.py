@@ -1,39 +1,17 @@
-# -*- coding: utf-8 -*-
 import os
-from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
-import unittest
-from contact import Contact
 
-class UntitledTestCase(unittest.TestCase):
-    def setUp(self):
-        self.driver = webdriver.Firefox()    #  запуск драйвера
-        self.driver.implicitly_wait(30)
+class ContactHelper:
+    def __init__(self, app):
+        self.app = app
 
-    def test_untitled_test_case(self):
-        wd = self.driver
-        self.open_home_page(wd)
-        self.auth(wd, username="admin", password="secret")
-        self.add_new_contact(wd, Contact(middle_name="Middle name", first_name="First name", last_name="Last name", nickname="Nickname", img_path="/photo.jpg", title="Title", company="Company",
-                             address="address address", home_phone="+79031234567", mobile_phone="+79031234568", work_phone="+79031234569", fax_phone="+79031234510",
-                             email_1="test@gmail.com", email_2="test2@gmail.com", email_3="test3@gmail.com", homepage="test.com", bday="1", bmonth="February",
-                             byear="1990", aday="3", amonth="April", ayear="2000", group_name="Test 1", address_2="address address 2", home="home", notes="notes"))
-        self.return_to_the_home_page(wd)
-        self.logout(wd)
-
-    def open_home_page(self, wd):
-        wd.get("http://localhost/addressbook/index.php")
-
-    def logout(self, wd):
-        wd.find_element_by_link_text("Logout").click()
-
-    def return_to_the_home_page(self, wd):
+    def return_to_the_home_page(self):
+        wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
 
-    def add_new_contact(self, wd, contact):
-        wd.find_element_by_link_text("add new").click()    # создание нового контакта
+    def create(self, contact):
+        wd = self.app.wd
+        wd.find_element_by_link_text("add new").click()  # создание нового контакта
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.first_name)
@@ -106,35 +84,6 @@ class UntitledTestCase(unittest.TestCase):
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
-        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()    # сохранение контакта
+        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()  # сохранение контакта
+        self.return_to_the_home_page()
 
-    def auth(self, wd, username, password):
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
-
-    def is_element_present(self, how, what):
-        try:
-            self.driver.find_element(by=how, value=what)
-        except NoSuchElementException as e:
-            return False
-        return True
-
-    def is_alert_present(self):
-        try:
-            self.driver.switch_to_alert()
-        except NoAlertPresentException as e:
-            return False
-        return True
-
-
-    def tearDown(self):
-        self.driver.quit()
-
-
-
-if __name__ == "__main__":
-    unittest.main()
