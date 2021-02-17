@@ -1,6 +1,14 @@
+import time
+
+
 class SessionHelper:
     def __init__(self, app):
         self.app = app
+
+    def logout(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("Logout").click()
+        time.sleep(1)   # возможно использование wd.find_element_by_name("user") для устранения перекрытия тестов при множественном запуске
 
     def login(self, username, password):
         wd = self.app.wd
@@ -11,6 +19,4 @@ class SessionHelper:
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
-    def logout(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("Logout").click()
+

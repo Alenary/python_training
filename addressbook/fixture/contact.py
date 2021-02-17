@@ -1,4 +1,6 @@
 import os
+import sys
+
 from selenium.webdriver.support.ui import Select
 
 class ContactHelper:
@@ -24,7 +26,7 @@ class ContactHelper:
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
         wd.find_element_by_name("nickname").send_keys(contact.nickname)
-        wd.find_element_by_name("photo").send_keys(os.getcwd() + contact.img_path)
+        wd.find_element_by_name("photo").send_keys(os.path.join(sys.path[1], contact.img_path))
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()
         wd.find_element_by_name("title").send_keys(contact.title)
