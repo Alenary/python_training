@@ -123,3 +123,8 @@ class ContactHelper:
         Select(wd.find_element_by_name("to_group")).select_by_visible_text("Test 1")
         wd.find_element_by_name("add").click()
         self.return_to_the_home_page()
+
+    def count(self):
+        wd = self.app.wd
+        self.return_to_the_home_page()
+        return len(wd.find_elements_by_name("selected[]"))
