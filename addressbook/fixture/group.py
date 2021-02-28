@@ -36,10 +36,13 @@ class GroupHelper:
         self.return_to_group_page()
 
     def change_info(self, group, wd):
-        wd.find_element_by_name("group_name").click()
-        wd.find_element_by_name("group_name").send_keys(group.group_name)  # добавление текста к существующему
-        wd.find_element_by_name("group_header").click()
-        wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(group.header)  # полная замена текста
-        wd.find_element_by_name("group_footer").click()
-        wd.find_element_by_name("group_footer").send_keys(group.footer)
+        self.change_field_value("group_name", group.group_name)
+        self.change_field_value("group_header", group.header)
+        self.change_field_value("group_footer", group.footer)
+
+    def change_field_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
